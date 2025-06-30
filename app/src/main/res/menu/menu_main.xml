@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/expenseTrackerFragment"
+        android:title="Tracker"
+        android:icon="@drawable/outline_add_card_24" />
+    <item android:id="@+id/budgetListFragment"
+        android:title="Budget"
+        android:icon="@drawable/outline_app_registration_24" />
+    <item android:id="@+id/reportFragment"
+        android:title="Report"
+        android:icon="@drawable/outline_bar_chart_24" />
+    <item android:id="@+id/profileFragment"
+        android:title="Profile"
+        android:icon="@drawable/outline_account_circle_24" />
+</menu>

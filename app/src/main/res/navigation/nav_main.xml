@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/expenseTrackerFragment">
+
+    <!-- ===== TRACKER TAB ===== -->
+    <fragment
+        android:id="@+id/expenseTrackerFragment"
+        android:name="com.ubaya.projectanmp.view.ExpenseTrackerFragment"
+        android:label="Tracker">
+
+        <action
+            android:id="@+id/action_expenseTrackerFragment_to_newExpenseFragment"
+            app:destination="@id/newExpenseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newExpenseFragment"
+        android:name="com.ubaya.projectanmp.view.NewExpenseFragment"
+        android:label="New Expense" />
+
+
+    <!-- ===== BUDGET TAB ===== -->
+    <fragment
+        android:id="@+id/budgetListFragment"
+        android:name="com.ubaya.projectanmp.view.BudgetListFragment"
+        android:label="Budget">
+
+        <!-- klik card / FAB -->
+        <action
+            android:id="@+id/action_budgetListFragment_to_newBudgetFragment"
+            app:destination="@id/newBudgetFragment">
+            <!-- -1  ⇒  tambah baru -->
+            <argument
+                android:name="budgetId"
+                app:argType="integer"
+                android:defaultValue="-1" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/newBudgetFragment"
+        android:name="com.ubaya.projectanmp.view.NewBudgetFragment"
+        android:label="New/Edit Budget">
+        <argument
+            android:name="budgetId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+
+    <!-- ===== REPORT TAB ===== -->
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.ubaya.projectanmp.view.ReportFragment"
+        android:label="Report" />
+
+    <!-- ===== PROFILE TAB ===== -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.ubaya.projectanmp.view.ProfileFragment"
+        android:label="Profile" />
+</navigation>
