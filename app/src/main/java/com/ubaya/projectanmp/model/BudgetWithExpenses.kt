@@ -12,5 +12,5 @@ data class BudgetWithExpenses(
     val expenses: List<Expense>
 ) {
     val spent: Int get() = expenses.sumOf { it.amount }
-    val remaining: Int get() = budget.maxAmount - spent
+
 }

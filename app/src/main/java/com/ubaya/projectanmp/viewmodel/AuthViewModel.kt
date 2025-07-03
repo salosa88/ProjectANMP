@@ -27,6 +27,10 @@ class AuthViewModel(app: Application)
     fun register(username: String, first: String, last: String,
                  pass: String, repeat: String) {
         launch {
+            if (pass.length < 8) {
+                messageLD.postValue("Password minimal 8 karakter")
+                return@launch
+            }
             if (pass != repeat) {
                 messageLD.postValue("Password dan ulangi password tidak sama")
                 return@launch

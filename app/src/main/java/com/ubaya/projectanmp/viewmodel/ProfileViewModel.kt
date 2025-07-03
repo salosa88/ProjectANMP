@@ -29,7 +29,12 @@ class ProfileViewModel(app: Application)
         val old = oldPass.value.orEmpty()
         val new = newPass.value.orEmpty()
         val rep = repeatPass.value.orEmpty()
-
+        if (new.isBlank() || rep.isBlank()) {
+            messageLD.postValue("Password baru tidak boleh kosong"); return@launch
+        }
+        if (new.length < 8) {
+            messageLD.postValue("Password minimal 8 karakter"); return@launch
+        }
         if (new != rep) {
             messageLD.postValue("New & Repeat tidak sama"); return@launch
         }

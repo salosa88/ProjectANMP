@@ -17,6 +17,5 @@ interface UserDao {
         UPDATE User SET password = :newHash
         WHERE id = :userId AND password = :oldHash
     """)
-
    fun changePassword(userId: Int, oldHash: String, newHash: String): Int
 }

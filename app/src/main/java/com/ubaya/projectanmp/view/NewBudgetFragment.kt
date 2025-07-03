@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.ubaya.projectanmp.R
 import com.ubaya.projectanmp.databinding.FragmentNewBudgetBinding
 import com.ubaya.projectanmp.model.Budget
 import com.ubaya.projectanmp.util.SessionManager
@@ -56,7 +55,7 @@ class NewBudgetFragment : Fragment() {
 
             if (budgetId == -1) {                             // Add
                 vm.addBudget(ownerId, name, amount)
-            } else {                                          // Ediy
+            } else {                                          // Edit
                 vm.updateBudget(
                     Budget(budgetId, ownerId, name, amount),
                     amount, ownerId

@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ubaya.projectanmp.R
 import com.ubaya.projectanmp.databinding.FragmentBudgetListBinding
 import com.ubaya.projectanmp.viewmodel.BudgetViewModel
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ubaya.projectanmp.R
 import com.ubaya.projectanmp.databinding.FragmentExpenseTrackerBinding
 import com.ubaya.projectanmp.util.SessionManager
 import com.ubaya.projectanmp.viewmodel.BudgetViewModel
@@ -21,6 +20,7 @@ class ExpenseTrackerFragment : Fragment() {
     private lateinit var budgetVm: BudgetViewModel
     private lateinit var adapter: ExpenseListAdapter
     private var userId = -1
+    private val budgetMap = mutableMapOf<Int, String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -31,20 +31,21 @@ class ExpenseTrackerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        vm = ViewModelProvider(requireActivity()).get(ExpenseViewModel::class.java)
-        budgetVm = ViewModelProvider(requireActivity()).get(BudgetViewModel::class.java)
+        vm = ViewModelProvider(requireActivity())[ExpenseViewModel::class.java]
+        budgetVm = ViewModelProvider(requireActivity())[BudgetViewModel::class.java]
         userId = SessionManager.userId(requireContext())
 
-        // provider nama budget berdasarkan id
         val provider: (Int) -> String = { id ->
-            budgetVm.budgetsLD.value?.firstOrNull { it.budget.id == id }?.budget?.name ?: "-"
+            budgetMap[id] ?: "-"
         }
+
         adapter = ExpenseListAdapter(arrayListOf(), provider)
         binding.recExpense.layoutManager = LinearLayoutManager(context)
         binding.recExpense.adapter = adapter
 
         binding.refreshLayout.setOnRefreshListener {
             vm.refresh(userId)
+            budgetVm.refresh(userId)
             binding.refreshLayout.isRefreshing = false
         }
 
@@ -56,13 +57,21 @@ class ExpenseTrackerFragment : Fragment() {
 
         observe()
         vm.refresh(userId)
+        budgetVm.refresh(userId)
     }
 
     private fun observe() {
+        budgetVm.budgetsLD.observe(viewLifecycleOwner) { budgets ->
+            budgetMap.clear()
+            budgets.forEach {
+                budgetMap[it.budget.id] = it.budget.name
+            }
+            vm.expensesLD.value?.let { adapter.update(it) }
+        }
+
         vm.expensesLD.observe(viewLifecycleOwner) { list ->
             adapter.update(list)
             binding.progressLoad.visibility = View.GONE
         }
     }
 }
-
